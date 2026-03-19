@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Mail, ExternalLink, Award, Code2, Cpu, Globe, Send, Phone, CheckCircle2, Star, Zap, Terminal } from 'lucide-react';
+import { Github, Linkedin, Mail, ExternalLink, Award, Code2, Cpu, Globe, Send, Phone, CheckCircle2, Star, Zap, Terminal, ShieldCheck, Activity } from 'lucide-react';
 
 export default function Portfolio() {
 const techStack = [
@@ -300,6 +300,83 @@ const techStack = [
                   </div>
                 </div>
               </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* Technical Deep Dive: FinTech Engineering */}
+        <section id="deep-dive" className="mb-40">
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-3xl font-bold tracking-tight">Technical Deep Dive</h2>
+            <div className="h-px flex-1 bg-gradient-to-r from-slate-800 to-transparent" />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            
+            {/* Idempotency Logic */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                  <ShieldCheck className="text-emerald-400" size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-slate-100 uppercase tracking-tighter">Double-Spend Prevention</h3>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                In the Reward360 Payment Gateway, network retries often cause duplicate requests. I engineered a **Distributed Idempotency Layer** using Redis and Lua scripting to ensure "Exactly-Once" processing.
+              </p>
+              <div className="bg-slate-900/60 rounded-xl p-6 border border-slate-800 font-mono text-[11px] leading-relaxed">
+                <div className="flex justify-between text-slate-500 mb-4 border-b border-slate-800 pb-2">
+                  <span>Logic Flow</span>
+                  <span className="text-emerald-500">Atomic Operation</span>
+                </div>
+                <ul className="space-y-2 text-slate-300">
+                  <li className="flex gap-2">
+                    <span className="text-blue-500">01</span> 
+                    <span>Generate Deterministic Key (PartnerID + RequestHash)</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-blue-500">02</span> 
+                    <span>SETNX with TTL to lock concurrent duplicate threads</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-blue-500">03</span> 
+                    <span>Verify Transaction Status from DB before execution</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-blue-500">04</span> 
+                    <span>Commit & Update Redis State to 'COMPLETED'</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Scale & Observability */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                  <Activity className="text-blue-400" size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-slate-100 uppercase tracking-tighter">Observability at Scale</h3>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Monitoring 500K+ daily transactions requires more than just logs. I transitioned the ecosystem to **OpenTelemetry**, enabling us to visualize the entire lifecycle of a reward redemption.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
+                  <p className="text-[10px] text-slate-500 uppercase font-bold mb-1">Trace Sampling</p>
+                  <p className="text-slate-200 font-mono text-xs font-bold tracking-tighter">100% Error Capture</p>
+                  <p className="text-[9px] text-slate-600 mt-1 italic">Zero blind spots for failures.</p>
+                </div>
+                <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
+                  <p className="text-[10px] text-slate-500 uppercase font-bold mb-1">Latency p99</p>
+                  <p className="text-emerald-400 font-mono text-xs font-bold tracking-tighter">&lt;350ms End-to-End</p>
+                  <p className="text-[9px] text-slate-600 mt-1 italic">Across distributed hops.</p>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 italic border-l-2 border-slate-800 pl-4">
+                "By mapping spans to specific database queries, we identified a legacy indexing issue that was causing 40% of our p99 spikes."
+              </p>
             </div>
 
           </div>
